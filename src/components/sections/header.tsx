@@ -34,7 +34,7 @@ export default function Header() {
         "sticky top-0 z-50 py-4 bg-background/70 backdrop-blur"
       }
     >
-      <div className="flex justify-between items-center container">
+      <div className="flex justify-between px-8">
         <Link
           href="/"
           title="brand-logo"

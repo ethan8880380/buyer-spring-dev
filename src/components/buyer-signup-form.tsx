@@ -17,32 +17,9 @@ const tacomaZipCodes = [
   '98466', '98467', '98498'
 ]
 
-export default function BuyerSignupForm() {
+export function BuyerSignupFormComponent() {
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState<{
-    name: string;
-    email: string;
-    phoneNumber: string;
-    zipCodes: string[];
-    budget: number;
-    homeType: string;
-    minBedrooms: string;
-    minBathrooms: string;
-    minSqft: string;
-    proxToMainSt: string;
-    minGarageSpaces: string;
-    views: string;
-    additionalDwellingUnit: boolean;
-    houseCondition: string;
-    homeColor: string;
-    garden: boolean;
-    porch: boolean;
-    yardSize: string;
-    hotTubAndPool: boolean;
-    haveRepresentation: boolean;
-    preApprovalFile: File | null;
-    agreeTerms: boolean;
-  }>({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phoneNumber: '',
@@ -85,7 +62,7 @@ export default function BuyerSignupForm() {
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
+    if (e.target.files) {
       setFormData(prev => ({ ...prev, preApprovalFile: e.target.files![0] }))
     }
   }
@@ -134,8 +111,9 @@ export default function BuyerSignupForm() {
               {tacomaZipCodes.map((zipCode) => (
                 <Button
                   key={zipCode}
-                  className={`p-1 text-xs ${formData.zipCodes.includes(zipCode) ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}
+                  variant={formData.zipCodes.includes(zipCode) ? "default" : "outline"}
                   onClick={() => handleZipCodeToggle(zipCode)}
+                  className="p-1 text-xs"
                 >
                   {zipCode}
                 </Button>
@@ -160,7 +138,7 @@ export default function BuyerSignupForm() {
               </div>
               <div>
                 <Label>Home Type</Label>
-                <Select onValueChange={(value: string) => handleSelectChange('homeType', value)}>
+                <Select onValueChange={(value) => handleSelectChange('homeType', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Home Type" />
                   </SelectTrigger>
@@ -178,7 +156,7 @@ export default function BuyerSignupForm() {
                   {['1+', '2+', '3+', '4+', '5+'].map((value) => (
                     <Button
                       key={value}
-                      className={formData.minBedrooms === value ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}
+                      variant={formData.minBedrooms === value ? "default" : "outline"}
                       onClick={() => handleSelectChange('minBedrooms', value)}
                     >
                       {value}
@@ -192,7 +170,7 @@ export default function BuyerSignupForm() {
                   {['1+', '1.5+', '2+', '2.5+', '3+'].map((value) => (
                     <Button
                       key={value}
-                      className={formData.minBathrooms === value ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}
+                      variant={formData.minBathrooms === value ? "default" : "outline"}
                       onClick={() => handleSelectChange('minBathrooms', value)}
                     >
                       {value}
@@ -206,7 +184,7 @@ export default function BuyerSignupForm() {
                   {['500+', '1000+', '1500+', '2000+', '2500+'].map((value) => (
                     <Button
                       key={value}
-                      className={formData.minSqft === value ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}
+                      variant={formData.minSqft === value ? "default" : "outline"}
                       onClick={() => handleSelectChange('minSqft', value)}
                     >
                       {value}
@@ -223,7 +201,7 @@ export default function BuyerSignupForm() {
             <div className="space-y-4">
               <div>
                 <Label>Proximity to Main Street</Label>
-                <Select onValueChange={(value: string) => handleSelectChange('proxToMainSt', value)}>
+                <Select onValueChange={(value) => handleSelectChange('proxToMainSt', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Proximity to Main Street" />
                   </SelectTrigger>
@@ -241,7 +219,7 @@ export default function BuyerSignupForm() {
                   {['0+', '1+', '2+', '3+'].map((value) => (
                     <Button
                       key={value}
-                      className={formData.minGarageSpaces === value ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}
+                      variant={formData.minGarageSpaces === value ? "default" : "outline"}
                       onClick={() => handleSelectChange('minGarageSpaces', value)}
                     >
                       {value}
@@ -251,7 +229,7 @@ export default function BuyerSignupForm() {
               </div>
               <div>
                 <Label>Views</Label>
-                <Select onValueChange={(value: string) => handleSelectChange('views', value)}>
+                <Select onValueChange={(value) => handleSelectChange('views', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Views" />
                   </SelectTrigger>
@@ -273,7 +251,7 @@ export default function BuyerSignupForm() {
               </div>
               <div>
                 <Label>House Condition</Label>
-                <Select onValueChange={(value: string) => handleSelectChange('houseCondition', value)}>
+                <Select onValueChange={(value) => handleSelectChange('houseCondition', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="House Condition" />
                   </SelectTrigger>
@@ -294,7 +272,7 @@ export default function BuyerSignupForm() {
             <div className="space-y-4">
               <div>
                 <Label>Home Color</Label>
-                <Select onValueChange={(value: string) => handleSelectChange('homeColor', value)}>
+                <Select onValueChange={(value) => handleSelectChange('homeColor', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Home Color" />
                   </SelectTrigger>
@@ -324,7 +302,7 @@ export default function BuyerSignupForm() {
               </div>
               <div>
                 <Label>Yard Size</Label>
-                <Select onValueChange={(value: string) => handleSelectChange('yardSize', value)}>
+                <Select onValueChange={(value) => handleSelectChange('yardSize', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Yard Size" />
                   </SelectTrigger>
@@ -442,14 +420,14 @@ export default function BuyerSignupForm() {
   const progressPercentage = (step / 7) * 100
 
   return (
-    <div className="min-h-screen w-{100vw} bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Buyer Signup</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-sm text-gray-600 mb-4">Step {step} of 7</div>
-          <div className="w-{75vw} bg-gray-200 rounded-full h-2.5 mb-4">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progressPercentage}%` }}></div>
           </div>
           <form onSubmit={handleSubmit}>
@@ -458,18 +436,12 @@ export default function BuyerSignupForm() {
         </CardContent>
         <CardFooter className="flex justify-between">
           {step > 1 && (
-            <Button onClick={() => setStep(prev => prev - 1)} className="bg-secondary text-secondary-foreground">
+            <Button onClick={() => setStep(prev => prev - 1)} variant="outline">
               Back
             </Button>
           )}
           {step < 7 ? (
-            <Button 
-              onClick={(e) => {
-                e.preventDefault();
-                setStep(prev => prev + 1);
-              }} 
-              className={step === 1 ? "ml-auto" : ""}
-            >
+            <Button onClick={() => setStep(prev => prev + 1)} className={step === 1 ? "ml-auto" : ""}>
               Next
             </Button>
           ) : (
